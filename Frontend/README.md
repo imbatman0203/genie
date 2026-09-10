@@ -4,6 +4,8 @@
 
 A minimal, editorial-style chat client that routes your prompts to any of 300+ models on OpenRouter. Built with React, Express, MongoDB, and Redis.
 
+**[Live Demo](https://genie-tan.vercel.app)** · **[GitHub Repo](https://github.com/imbatman0203/genie)**
+
 ---
 
 ## Screenshots
