@@ -11,19 +11,23 @@ A minimal, editorial-style chat client that routes your prompts to any of 300+ m
 ## Screenshots
 
 ### Landing
-![Landing](./screenshots/01-landing.png)
+![Landing](./Frontend/screenshots/01-landing.png)
+
 
 ### Sign up
-![Sign up](./screenshots/02-signup.png)
+![Sign up](./Frontend/screenshots/02-signup.png)
+
 
 ### Chat with markdown + code
-![Chat](./screenshots/03-chat.png)
+![Chat](./Frontend/screenshots/03-chat.png)
+
 
 ### Model picker
-![Models](./screenshots/04-models.png)
+![Models](./Frontend/screenshots/04-models.png)
+
 
 ### Mobile
-![Mobile](./screenshots/05-mobile.png)
+![Mobile](./Frontend/screenshots/05-mobile.png)
 
 ---
 
@@ -101,11 +105,11 @@ A minimal, editorial-style chat client that routes your prompts to any of 300+ m
 ### Backend
 
 ```bash
-cd Backend/CHATGPT PROJECT
+cd Backend
 npm install
 ```
 
-Create a `.env` file in `Backend/CHATGPT PROJECT/` with:
+Create a `.env` file in `Backend/` with:
 
 ```env
 PORT=3000
