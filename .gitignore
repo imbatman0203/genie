@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+**/node_modules
+
+# env
+.env
+**/.env
+*.env.local
+
+# builds
+dist
+build
+**/dist
+
+# mac
+.DS_Store
+**/.DS_Store
+
+# logs
+*.log
+npm-debug.log*
