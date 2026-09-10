@@ -23,44 +23,52 @@ export function ChatProvider({ children }) {
   const [error, setError] = useState("");
 
   // ---- Load models once ----
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await modelsApi.list();
-        if (cancelled) return;
-        const list = res.models || [];
-        setAvailableModels(list);
-        // If no model chosen yet (or the stored one is invalid), pick a sensible default
-        if (list.length) {
-          const stored = localStorage.getItem(LS_MODEL_KEY);
-          const isValid = stored && list.some((m) => m.id === stored);
-          if (!isValid) {
-            const PREFERRED = [
-              "openai/gpt-4o-mini",
-              "openai/gpt-4o",
-              "google/gemini-flash-1.5",
-              "google/gemini-2.0-flash-001",
-              "anthropic/claude-3.5-sonnet",
-              "meta-llama/llama-3.1-8b-instruct",
-              "meta-llama/llama-3.3-70b-instruct",
-              "deepseek/deepseek-chat",
-            ];
-            const preferred =
-              PREFERRED.map((id) => list.find((m) => m.id === id)).find(Boolean) ||
-              list.find((m) => m.id.includes("gpt-4o-mini")) ||
-              list.find((m) => m.id.includes("gpt-4o")) ||
-              list[0];
-            setSelectedModel(preferred.id);
-            localStorage.setItem(LS_MODEL_KEY, preferred.id);
-          }
+  const loadModels = useCallback(async (attempt = 0) => {
+    try {
+      const res = await modelsApi.list();
+      const list = res.models || [];
+      setAvailableModels(list);
+  
+      if (list.length) {
+        const stored = localStorage.getItem(LS_MODEL_KEY);
+        const isValid = stored && list.some((m) => m.id === stored);
+        if (!isValid) {
+          const PREFERRED = [
+            "openai/gpt-4o-mini",
+            "openai/gpt-4o",
+            "google/gemini-flash-1.5",
+            "google/gemini-2.0-flash-001",
+            "anthropic/claude-3.5-sonnet",
+            "meta-llama/llama-3.1-8b-instruct",
+            "meta-llama/llama-3.3-70b-instruct",
+            "deepseek/deepseek-chat",
+          ];
+          const preferred =
+            PREFERRED.map((id) => list.find((m) => m.id === id)).find(Boolean) ||
+            list.find((m) => m.id.includes("gpt-4o-mini")) ||
+            list.find((m) => m.id.includes("gpt-4o")) ||
+            list[0];
+          setSelectedModel(preferred.id);
+          localStorage.setItem(LS_MODEL_KEY, preferred.id);
         }
-      } catch (err) {
+      }
+    } catch (err) {
+      // Retry up to 3 times with delay (handles the login race condition)
+      if (attempt < 3) {
+        setTimeout(() => loadModels(attempt + 1), 400 * (attempt + 1));
+      } else {
         console.warn("Could not load models:", err?.message);
       }
-    })();
-    return () => { cancelled = true; };
+    }
   }, []);
+  
+  useEffect(() => {
+    if (user) {
+      loadModels();
+    } else {
+      setAvailableModels([]);
+    }
+  }, [user, loadModels]);
 
   // ---- Persist model choice ----
   useEffect(() => {
