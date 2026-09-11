@@ -36,7 +36,7 @@ export default function Login() {
       <div className="auth__brand-top">
   <div className="auth__crest-row">
     <Logo size={22} />
-    <div className="label">EST. MMXXV · A SUMMONING APP</div>
+    <div className="label">EST. MMXXVI · A SUMMONING APP</div>
   </div>
           <h1 className="auth__wordmark serif">
             genie<span className="accent">.</span>
@@ -67,7 +67,7 @@ export default function Login() {
         </div>
 
         <div className="auth__footer">
-          <span className="mono">© 2025 · GENIE</span>
+          <span className="mono">© 2026 · GENIE</span>
           <span className="mono">NO. 001</span>
         </div>
       </aside>

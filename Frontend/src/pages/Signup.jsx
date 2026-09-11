@@ -51,7 +51,7 @@ export default function Signup() {
       <div className="auth__brand-top">
   <div className="auth__crest-row">
     <Logo size={22} />
-    <div className="label">NEW ARRIVAL · MMXXV</div>
+    <div className="label">NEW ARRIVAL · MMXXVI</div>
   </div>
           <h1 className="auth__wordmark serif">
             genie<span className="accent">.</span>
@@ -79,7 +79,7 @@ export default function Signup() {
         </div>
 
         <div className="auth__footer">
-          <span className="mono">© 2025 · GENIE</span>
+          <span className="mono">© 2026 · GENIE</span>
           <span className="mono">FORM 001-A</span>
         </div>
       </aside>
